@@ -36,3 +36,27 @@ void *filosofo(void *arg){
     }
     pthread_exit(NULL);
 }
+
+int main() {
+    srand(time(NULL));
+    int i;
+    int id[CANT_FILOSOFOS];
+
+    for ( i = 0; i < CANT_FILOSOFOS; i++){
+        sem_init(&tenedores[i],0,1);
+        id[i] = i;
+        pthread_create(&filosofos[i], NULL, filosofo, &id[i]);
+    }//Creacion
+
+    sleep(8);
+
+    inicio = 0;
+
+    for ( i = 0; i < CANT_FILOSOFOS; i++){
+        pthread_join(filosofos[i], NULL);
+        sem_destroy(&tenedores[i]);
+    }
+
+    return 0;
+        
+}
