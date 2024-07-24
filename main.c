@@ -16,22 +16,22 @@ void *filosofo(void *arg){
     int derecha = (id + 1) % CANT_FILOSOFOS;
 
     while (inicio){//Bucle infinito
-        printf("Filosofo %d pensando. \n", id);
+        printf("Filosofo %d pensando. \n", (id+1));
         usleep(rand() %1000000); //Pensamiento
 
-        printf("Filosofo %d con hambre. \n", id);
+        printf("Filosofo %d con hambre. \n", (id+1));
 
         sem_wait(&tenedores[izquierda]); //Esperar por el tenedor izquierdo
         sem_wait(&tenedores[derecha]); //Esperar por el tenedor derecho
 
-        printf("Filosofo %d usa los tenedores (%d, %d). \n", id, izquierda, derecha);
+        printf("Filosofo %d usa los tenedores (%d, %d). \n", (id+1), (izquierda+1), (derecha+1));
 
-        printf("Filosofo %d comiendo. \n", id);
+        printf("Filosofo %d comiendo. \n", (id+1));
         usleep(rand() %1000000); //Comiendo
 
         sem_post(&tenedores[izquierda]);// Termina de usar el tenedor derecho
         sem_post(&tenedores[derecha]);// Termina de usar el tenedor izquierdo
-        printf("Filosofo %d regreso los tenedores (%d, %d). \n", id, izquierda, derecha);
+        printf("Filosofo %d regreso los tenedores (%d, %d). \n", (id+1), (izquierda+1), (derecha+1));
 
     }
     pthread_exit(NULL);
